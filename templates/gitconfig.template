@@ -4,42 +4,41 @@
 [github]
   user = #{your_name}
   token = #{your_token}
-[heroku]
-  user = #{your_name}
 [alias]
-  aa    = add --all
-  ap    = add -p
+  aa    = add --all #1
+  ap    = add -p #2
   amend = commit -C HEAD --amend
-  br    = branch
+  br    = branch #1
   cb    = checkout -b
-  ci    = commit
-  cim   = commit -m
-  ciam  = commit --amend
-  co    = checkout
+  ci    = commit #1
+  cim   = commit -m #2
+  ciam  = commit --amend #2
+  co    = checkout #1
   colwrd = diff --color-words='\\w+|\\S'
-  d     = diff
-  dc    = diff --cached
+  d     = diff #1
+  dc    = diff --cached #1
   dt    = difftool
   dk    = difftool -y -t Kaleidoscope
   f     = fetch
-  fp    = fetch -p
+  fp    = fetch -p #1
   fu    = fetch upstream
-  l     = pull
+  l     = pull #1
   lf    = !git-foresta --style=10 "$@" | less -RSX
-  lg    = log --graph --abbrev-commit
+  lg    = log --graph --abbrev-commit #1
   lgp   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit -p
+  lgo   = log --oneline
   lgs   = log -S
   lsau  = !git ls-files -v | grep ^h | awk '{print $2}'
   mg    = merge
-  mgnf  = merge --no-ff
-  p     = push --recurse-submodules=check
+  mgnf  = merge --no-ff #3
+  p     = push --recurse-submodules=check #2
   pu    = push --recurse-submodules=check -u
   pa    = push --recurse-submodules=on-demand
   rb    = rebase
-  rbc   = rebase --continue
+  rbc   = rebase --continue #3
   ref   = reflog show --date=relative
-  rhh   = reset HEAD --hard
-  rh    = reset HEAD
+  rhh   = reset HEAD --hard #4
+  rh    = reset HEAD #2
   #remove deleted files
   rmd   = !git rm `git ls-files --deleted`
   sh    = stash
@@ -47,8 +46,8 @@
   shs   = "!f(){ git stash show stash^{/$*} -p; }; f"
   shl   = stash list
   shp   = stash pop
-  shu   = stash -u
-  st    = status
+  shu   = stash -u #1
+  st    = status #1
   # use ! to execute unix command
   sync  = !"git fetch origin -v && git fetch upstream -v && git merge upstream/master"
 [core]
@@ -57,7 +56,7 @@
   #set autocrlf and safecrlf
   #autocrlf = input # use true if windows
   safecrlf     = true
-  editor       = 'mvim -f --nomru -c "au VimLeave * !open -a Terminal"'
+  editor       = 'code'
 [color]
   diff   = auto
   status = auto
@@ -71,24 +70,15 @@
   default = simple
 [rerere]
   enabled = true
-[diff]
-  tool = Kaleidoscope
-[difftool]
-  prompt = false
-[difftool "Kaleidoscope"]
-  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[merge]
-  tool = Kaleidoscope
-[mergetool]
-  prompt = false
-[mergetool "Kaleidoscope"]
-  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-  trustexitcode = true
-[commit]
-  template = /Users/tai/.stCommitMsg
 [filter "lfs"]
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 [credential]
   helper = osxkeychain

@@ -1,7 +1,9 @@
- ### Profile
+## Profile
 # zmodload zsh/zprof
 
-autoload -Uz compinit
+fpath=(${ASDF_DIR}/completions $fpath)
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
 
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
@@ -23,7 +25,7 @@ zle -N backward-delete-word
 # Default colors:
 # White for users, red for root, magenta for system users
 local _time="%{$fg[yellow]%}[%*]"
-local _path="%{$fg[green]%}%(8~|...|)%7~"
+local _path="%{$fg[green]%}%(8~|...|)%3~" #Change from 7 to 3
 local _usercol
 if [[ $EUID -lt 1000 ]]; then
   # red for root, magenta for system users
@@ -41,7 +43,7 @@ fi
 
 PROMPT='$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} '
 
-RPROMPT="\$(gitHUD zsh)"
+# RPROMPT="\$(gitHUD zsh)"
 # RPROMPT="${vcs_info_msg_0_}" # git branch
 
 if [[ ! -z "$SSH_CLIENT" ]]; then
@@ -82,9 +84,7 @@ fi
 # fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
 
 
-##
-# zsh configuration
-#
+## zsh configuration
 
 # Keep 1000 lines of history within the shell and save it to ~/.cache/shell_history
 HISTSIZE=1000
@@ -101,7 +101,7 @@ setopt histignorespace # Ignore command start with space
 # Extended glob syntax, eg ^ to negate, <x-y> for range, (foo|bar) etc.
 # Backwards-incompatible with bash, so disabled by default.
 
-# Colors!
+## Colors!
 
 # 256 color mode
 export TERM="xterm-256color"
@@ -128,7 +128,7 @@ alias less="less -R"
 export WORDCHARS='*?[]~=&;!#$%^(){}<>'
 
 # Override system vim
-alias vim='nvim'
+# alias vim='vim'
 
 # Headless Chrome
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
@@ -165,21 +165,21 @@ zstyle ":completion:*:kill:*" command "ps -u $USER -o pid,%cpu,tty,cputime,cmd"
 #
 
 # Use emacs-style keybindings
-bindkey -e
+# bindkey -e
 
-bindkey "$terminfo[khome]" beginning-of-line # Home
-bindkey "$terminfo[kend]" end-of-line # End
-bindkey "$terminfo[kich1]" overwrite-mode # Insert
-bindkey "$terminfo[kdch1]" delete-char # Delete
+# bindkey "$terminfo[khome]" beginning-of-line # Home
+# bindkey "$terminfo[kend]" end-of-line # End
+# bindkey "$terminfo[kich1]" overwrite-mode # Insert
+# bindkey "$terminfo[kdch1]" delete-char # Delete
 # bindkey "$terminfo[kcuu1]" up-line-or-history # Up
 # bindkey "$terminfo[kcud1]" down-line-or-history # Down
-bindkey "$terminfo[kcub1]" backward-char # Left
-bindkey "$terminfo[kcuf1]" forward-char # Right
+# bindkey "$terminfo[kcub1]" backward-char # Left
+# bindkey "$terminfo[kcuf1]" forward-char # Right
 # bindkey "$terminfo[kpp]" # PageUp
 # bindkey "$terminfo[knp]" # PageDown
 zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+# bindkey "$terminfo[kcuu1]" history-substring-search-up
+# bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
 # Bind shift-tab to backwards-menu
@@ -244,17 +244,13 @@ alias mkhttp="python -m http.server"
 alias perms="stat -c '%A %a %n'"
 
 # vim
-alias v="nvim"
-export EDITOR="nvim"
+alias v="vim"
 
-# Emacs
-alias emd="emacs --daemon"
-alias ec="emacsclient -c"
+# be polite
+alias pls="sudo"
+alias please="sudo"
 
-# Emacs GUI
-function em() {
-    /Applications/Emacs.app/Contents/MacOS/Emacs "${1:-.}";
-}
+export EDITOR="code"
 
 # zsh tab title
 setTerminalText () {
@@ -269,7 +265,7 @@ stt_title () { setTerminalText 2 $@; }
 tb () { stt_tab "${PWD/${HOME}/~}" }
 
 #clean open_with
- alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+alias cleanOpenWith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 
 # bundle & rake
 alias k="rake"
@@ -279,18 +275,6 @@ alias br="bundle exec rake"
 # mix
 alias m="mix"
 alias im="iex -S mix"
-
-# gittower
-alias gt="gittower"
-
-# vagrant
-export VAGRANT_DEFAULT_PROVIDER='virtualbox'
-
-alias vg="vagrant"
-vc() {
-  CMD="cd /vagrant; $@";
-  vagrant ssh -c "$CMD"
-}
 
 # terraform
 alias tf="terraform"
@@ -305,8 +289,6 @@ man () {
   LESS_TERMCAP_us=$'\e'"[1;32m" \
   command man "$@"
 }
-
-# alias diablo='/Applications/Diablo\ III/Diablo\ III.app/Contents/MacOS/Diablo\ III -launch'
 
 alias topTyped='history 0 | topTypedHistory | sort -rn | head -20'
 
@@ -407,24 +389,15 @@ fi
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 # zsh-history-substring-search
-[[ -s /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # zsh-syntax-highlighting
 [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-if [ -n "$INSIDE_EMACS" ]; then
-  chpwd() { print -P "\033AnSiTc %d" }
-  print -P "\033AnSiTu %n"
-  print -P "\033AnSiTc %d"
-else
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fi
-
-if [[ -n $INSIDE_EMACS && $(uname) == 'Darwin' ]]; then
-  stty ek
-fi
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # source homebrew github api token
 if [[ -f ~/.homebrew_github_api_token ]]; then
@@ -443,10 +416,16 @@ if [[ -f ~/.fzf.zsh ]]; then
   complete -F _fzf_dir_completion -o default -o bashdefault tree
 fi
 
+# Brew M1
+export PATH=/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/Library/Apple/usr/bin
+
+# Gunpg
+export GPG_TTY=$(tty)
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+alias mysql="mysql -u root"
+
 # asdf
 if [[ -f ~/.asdf/asdf.sh ]]; then
   . $HOME/.asdf/asdf.sh
-  . $HOME/.asdf/completions/asdf.bash
 fi
-
-# export GIT_RADAR_FORMAT="%{$fg_bold[white]%}git:(%{$reset_color%}%{remote: }%{branch}%{ :local}%{$fg_bold[white]%})%{$reset_color%}%{ :stash}%{ :changes}"

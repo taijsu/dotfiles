@@ -43,6 +43,7 @@ show_part_repo_indicator=False
 # no_tracked_upstream_text_color=Red
 # no_tracked_upstream_text_intensity=Vivid
 # no_tracked_upstream_indicator=⚡
+no_tracked_upstream_indicator=!
 # no_tracked_upstream_indicator_color=Red
 # no_tracked_upstream_indicator_intensity=Vivid
 #

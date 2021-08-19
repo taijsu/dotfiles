@@ -1,11 +1,13 @@
 require 'rake'
 
-task default: %w[update:async_tasks_with_commit update:finish_msg]
+# task default: %w[update:async_tasks_with_commit update:finish_msg]
+task default: %w[update:only update:finish_msg]
 
 namespace :update do
   multitask async_tasks_with_commit: %w[homebrew vim_and_commit yarn source spacemacs]
   desc 'Update all without commit plug.vim'
-  multitask only: %w[homebrew vim yarn spacemacs asdf]
+#  multitask only: %w[homebrew vim yarn spacemacs asdf]
+  multitask only: %w[homebrew asdf]
 
   [:homebrew, :npm, :yarn, :vim, :vim_and_commit, :emacs, :spacemacs, :source, :asdf].each do |task_name|
     desc "Update #{task_name}"
@@ -48,6 +50,7 @@ namespace :update do
   end
 
   def update_vim
+    return unless Dir.exists?("#{Dir.home}/.vim")
     vim_update = 'nvim "+set nomore" "+PlugUpgrade" "+PlugUpdate" "+UpdateRemotePlugin" "+qall"'
     sh vim_update
 

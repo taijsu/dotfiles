@@ -1,4 +1,5 @@
-export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/Library/Apple/usr/bin
 
 # GO
 export GOPATH=$HOME/projects/gocode/bin
@@ -44,5 +45,6 @@ alias re="repeat"
 function tagjs() {
   find . -type f -iregex ".*\.js$" -not -path "./node_modules/*" -exec jsctags {} -f \; | sed '/^$/d' | sort > tags
 }
+
 # git
 alias g="git"
