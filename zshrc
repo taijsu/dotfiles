@@ -25,7 +25,7 @@ zle -N backward-delete-word
 # Default colors:
 # White for users, red for root, magenta for system users
 local _time="%{$fg[yellow]%}[%*]"
-local _path="%{$fg[green]%}%(8~|...|)%3~" #Change from 7 to 3
+local _path="%{$fg[green]%}%(8~|...|)%2~" #Change from 7 to 2
 local _usercol
 if [[ $EUID -lt 1000 ]]; then
   # red for root, magenta for system users
@@ -84,7 +84,9 @@ fi
 # fpath=($XDG_CONFIG_HOME/zsh/completion $fpath)
 
 
-## zsh configuration
+##
+# zsh configuration
+#
 
 # Keep 1000 lines of history within the shell and save it to ~/.cache/shell_history
 HISTSIZE=1000
@@ -101,7 +103,7 @@ setopt histignorespace # Ignore command start with space
 # Extended glob syntax, eg ^ to negate, <x-y> for range, (foo|bar) etc.
 # Backwards-incompatible with bash, so disabled by default.
 
-## Colors!
+# Colors!
 
 # 256 color mode
 export TERM="xterm-256color"
@@ -165,12 +167,12 @@ zstyle ":completion:*:kill:*" command "ps -u $USER -o pid,%cpu,tty,cputime,cmd"
 #
 
 # Use emacs-style keybindings
-# bindkey -e
+bindkey -e
 
-# bindkey "$terminfo[khome]" beginning-of-line # Home
-# bindkey "$terminfo[kend]" end-of-line # End
-# bindkey "$terminfo[kich1]" overwrite-mode # Insert
-# bindkey "$terminfo[kdch1]" delete-char # Delete
+bindkey "$terminfo[khome]" beginning-of-line # Home
+bindkey "$terminfo[kend]" end-of-line # End
+bindkey "$terminfo[kich1]" overwrite-mode # Insert
+bindkey "$terminfo[kdch1]" delete-char # Delete
 # bindkey "$terminfo[kcuu1]" up-line-or-history # Up
 # bindkey "$terminfo[kcud1]" down-line-or-history # Down
 # bindkey "$terminfo[kcub1]" backward-char # Left
@@ -350,6 +352,9 @@ alias launch="launch " # expand aliases
 #   print "${${(j: :)@}//(#b)(?)/%$[[##16]##${match[1]}]}"
 # }
 
+# Ruby on M1
+export PATH=/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/3.0.0/bin:$PATH
+
 # uninstall rails
 uninstallRails(){
   gems=("activemodel" "activerecord" "activesupport" "actionmailer" "actionpack" "railties" "rails" "arel")
@@ -369,8 +374,16 @@ function desktopIcons() {
   defaults write com.apple.finder CreateDesktop ${1:-true} && killall Finder
 }
 
-# Extras
+# Plugins
 #
+
+# homebrew M1
+export PATH=/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/Library/Apple/usr/bin
+
+# source homebrew github api token
+if [[ -f ~/.homebrew_github_api_token ]]; then
+  source ~/.homebrew_github_api_token
+fi
 
 function precmd() {
     # Clear the terminal title before running any command.
@@ -388,21 +401,19 @@ fi
 # Autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
+# zsh-autosuggestions
+# [[ -s $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # zsh-history-substring-search
-[[ -s /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source /usr/local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+# [[ -s $(brew --prefix)/zsh-history-substring-search/zsh-history-substring-search.zsh ]] && source $(brew --prefix)share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # zsh-syntax-highlighting
-[[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# [[ -s $(brew --prefix)share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-[[ -s /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# source homebrew github api token
-if [[ -f ~/.homebrew_github_api_token ]]; then
-  source ~/.homebrew_github_api_token
-fi
 
 # source google-cloud-sdk
 if [[ -s /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc ]]; then
@@ -416,14 +427,11 @@ if [[ -f ~/.fzf.zsh ]]; then
   complete -F _fzf_dir_completion -o default -o bashdefault tree
 fi
 
-# Brew M1
-export PATH=/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/Library/Apple/usr/bin
-
 # Gunpg
 export GPG_TTY=$(tty)
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
-alias mysql="mysql -u root"
+alias mysqlgo="mysql -u root"
 
 # asdf
 if [[ -f ~/.asdf/asdf.sh ]]; then
