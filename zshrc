@@ -166,6 +166,9 @@ zstyle ":completion:*:kill:*" command "ps -u $USER -o pid,%cpu,tty,cputime,cmd"
 # Keybinds
 #
 
+#Treminal for iterm hotkeys
+bindkey "^X\\x7f" backward-kill-line
+
 # Use emacs-style keybindings
 bindkey -e
 
