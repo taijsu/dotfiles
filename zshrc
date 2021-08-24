@@ -43,8 +43,20 @@ fi
 
 PROMPT='$_time $_user $_path $_prompt%b%f%k%{$fg[white]%} '
 
-# RPROMPT="\$(gitHUD zsh)"
+## Right Prompt 
+# (Git)
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+# zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:git*' formats "%{$fg[blue]%}%b%"
+
+RPROMPT=\$vcs_info_msg_0_
 # RPROMPT="${vcs_info_msg_0_}" # git branch
+
+# zsh-git-prompt
+# RPROMPT='%B%m%~%b$(git_super_status) %# '
 
 if [[ ! -z "$SSH_CLIENT" ]]; then
   RPROMPT="$RPROMPT ⇄" # ssh icon
@@ -248,6 +260,9 @@ alias mkhttp="python -m http.server"
 # octal+text permissions for files
 alias perms="stat -c '%A %a %n'"
 
+#mysql
+alias mysqlgo="mysql -u root"
+
 # vim
 alias v="vim"
 
@@ -416,6 +431,9 @@ source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring
 # [[ -s $(brew --prefix)share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# zsh-git-prompt
+# source $(brew --prefix)/opt/zsh-git-prompt/zshrc.sh
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # source google-cloud-sdk
@@ -433,8 +451,6 @@ fi
 # Gunpg
 export GPG_TTY=$(tty)
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-
-alias mysqlgo="mysql -u root"
 
 # asdf
 if [[ -f ~/.asdf/asdf.sh ]]; then
