@@ -1,0 +1,122 @@
+/*********************************/
+/* Personal */
+/*********************************/
+
+.theme-light,
+.theme-dark {
+  --text-title-h1: #454A65;
+  --text-title-h2: #923460;
+  --text-title-h3: #B18FBF;
+  --text-title-h4: #D96A88;
+  --text-title-h5: #8db9f3;
+  --text-title-h6: #1F5AA6;
+  --inline-code: #D93B65;    
+  --code-block: #8C5D58;
+  --pre-code: #44475a;
+  --blockquote-border: #ffb86c;
+  --vim-cursor: #ff5555;
+  --border-color: #2b2727; /*also like transparent*/
+}
+
+/* in-line block for editor */
+.cm-s-obsidian span.cm-inline-code,
+.cm-s-obsidian span.cm-inline-code.cm-hmd-indented-code,
+.cm-s-obsidian span.cm-inline-code:not(.cm-formatting):not(.cm-hmd-indented-code)
+{
+  color: var(--inline-code) !important;
+}
+
+/* Editor CodeBlock TEXT Appearance */
+.cm-s-obsidian pre.HyperMD-codeblock {
+  color: var(--code-block);
+}
+
+/*********************************/
+
+.theme-light,
+.theme-dark {
+--text-title-h1: #454A65;
+--text-title-h2: #51718C;
+--text-title-h3: #B18FBF;
+--text-title-h4: #D93B65;
+--text-title-h5: #D96A88;
+--text-title-h6: #8db9f3;
+--inline-code: #bd93f9;    
+--code-block: #8C5D58;
+--pre-code: #44475a;
+--blockquote-border: #ffb86c;
+--vim-cursor: #ff5555;
+--border-color: #2b2727; /*also like transparent*/
+}
+
+
+/*********************************/
+/* Works */
+/*********************************/
+
+.theme-light,
+.theme-dark {
+  --text-title-h1: #365073;
+  --text-title-h2: #51718C;
+  --text-title-h3: #A88D7D;
+  --text-title-h4: #ffb86c;
+  --text-title-h5: #1cb2b4;
+  --text-title-h6: #6CA7A8;
+  --inline-code: #D93B65;;    
+  --code-block: #A66E4E;
+  --pre-code: #44475a;
+  --blockquote-border: #ffb86c;
+  --vim-cursor: #ff5555;
+  --border-color: #2b2727; /*also like transparent*/
+}
+
+/* in-line block for editor */
+.cm-s-obsidian span.cm-inline-code,
+.cm-s-obsidian span.cm-inline-code.cm-hmd-indented-code,
+.cm-s-obsidian span.cm-inline-code:not(.cm-formatting):not(.cm-hmd-indented-code)
+{
+  color: var(--inline-code) !important;
+}
+
+/* Editor CodeBlock TEXT Appearance */
+.cm-s-obsidian pre.HyperMD-codeblock {
+  color: var(--code-block);
+}
+
+/*********************************/
+
+.theme-light,
+.theme-dark {
+--text-title-h1: #454A65;
+--text-title-h2: #51718C;
+--text-title-h3: #B18FBF;
+--text-title-h4: #D93B65;
+--text-title-h5: #D96A88;
+--text-title-h6: #8db9f3;
+--inline-code: #bd93f9;    
+--code-block: #8C5D58;
+--pre-code: #44475a;
+--blockquote-border: #ffb86c;
+--vim-cursor: #ff5555;
+--border-color: #2b2727; /*also like transparent*/
+}
+
+/*********************************/
+/* Original */
+/*********************************/
+
+.theme-light,
+.theme-dark {
+  --text-title-h1: #ff79c6;
+  --text-title-h2: #bd93f9;
+  --text-title-h3: #ff5555;
+  --text-title-h4: #ffb86c;
+  --text-title-h5: #50fa7b;
+  --text-title-h6: #8be9fd;
+  --inline-code: #bd93f9;
+  --code-block: #8be9fd;
+  --pre-code: #44475a;
+  --blockquote-border: #ffb86c;
+  --vim-cursor: #ff5555;
+  --border-color: #2b2727; /*also like transparent*/
+}
